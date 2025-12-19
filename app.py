@@ -145,6 +145,35 @@ if st.session_state.stage <= 4 and not st.session_state.game_over:
 # =====================
 # 안내 문구
 # =====================
+# =====================
+# 3단계 pH 선택
+# =====================
+if st.session_state.stage == 3:
+    st.markdown(
+        "<div style='color:white; font-size:20px; margin-bottom:10px;'>"
+        "🧪 세포에 적절한 pH를 선택하세요 (중성)"
+        "</div>",
+        unsafe_allow_html=True
+    )
+
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        if st.button("산성 (pH ↓)"):
+            st.error("❌ 효소가 변성되었습니다. 게임 오버!")
+            st.stop()
+
+    with c2:
+        if st.button("중성 (pH 7)"):
+            st.success("✅ 최적의 pH입니다!")
+            st.session_state.stage = 4
+            st.rerun()
+
+    with c3:
+        if st.button("염기성 (pH ↑)"):
+            st.error("❌ 세포 기능이 손상되었습니다. 게임 오버!")
+            st.stop()
+
 guide = ""
 if st.session_state.stage == 1:
     guide = "🟣 포도당을 모두 먹어 ATP를 생성하세요."
